@@ -2,4 +2,8 @@ git init
 second line
 third line
 fourth line
+<<<<<<< HEAD
 fifth lasaa
+=======
+fifth laa
+>>>>>>> practice
