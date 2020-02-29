@@ -3,7 +3,7 @@ package com.techlabs.basic.app;
 public class StringTest1 {
 
 	public static void main(String[] args) {
-//		String[] strings = { "AB", "ABCDE", "abcdef", "LINEJ", "JENIL", "Valera", "jenilvalera" };
+//		String[] words = { "AB", "ABCDE", "abcdef", "LINEJ", "JENIL", "Valera", "jenilvalera" };
 
 		System.out.println("-----iterate------");
 		iterate(args);
@@ -17,42 +17,42 @@ public class StringTest1 {
 		replaceWithLetter(args);
 	}
 
-	public static void iterate(String[] strings) {
-		for (int i = 0; i < strings.length; i++) {
-			System.out.println(strings[i]);
+	public static void iterate(String[] words) {
+		for (int i = 0; i < words.length; i++) {
+			System.out.println(words[i]);
 		}
 	}
 
-	public static void iterateForEach(String[] strings) {
-		for (String string : strings) {
+	public static void iterateForEach(String[] words) {
+		for (String string : words) {
 			System.out.println(string);
 		}
 	}
 
-	public static String largestString(String[] strings) {
+	public static String largestString(String[] words) {
 		int max = 0;
-		for (int i = 0; i < strings.length; i++) {
-			if (strings[i].length() > strings[max].length()) {
+		for (int i = 0; i < words.length; i++) {
+			if (words[i].length() > words[max].length()) {
 				max = i;
 			}
 		}
-		return strings[max];
+		return words[max];
 	}
 
-	public static String smallestString(String[] strings) {
+	public static String smallestString(String[] words) {
 		int min = 0;
-		for (int i = 0; i < strings.length; i++) {
-			if (strings[i].length() < strings[min].length()) {
+		for (int i = 0; i < words.length; i++) {
+			if (words[i].length() < words[min].length()) {
 				min = i;
 			}
 		}
-		return strings[min];
+		return words[min];
 	}
 
-	public static void replaceWithLetter(String[] strings) {
-		for (int i = 0; i < strings.length; i++) {
-			strings[i] = strings[i].replace("a", "O");
-			System.out.println(strings[i]);
+	public static void replaceWithLetter(String[] words) {
+		for (int i = 0; i < words.length; i++) {
+			words[i] = words[i].replace("a", "O");
+			System.out.println(words[i]);
 		}
 	}
 }
