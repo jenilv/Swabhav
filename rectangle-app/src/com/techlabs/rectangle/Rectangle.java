@@ -4,8 +4,11 @@ public class Rectangle {
 
 	private int width;
 	private int height;
+	private String color;
+
 	private final int START_RANGE = 1;
 	private final int END_RANGE = 100;
+	private final String DEFAULT_COLOR = "Yellow";
 
 	public int getWidth() {
 		return width;
@@ -21,6 +24,19 @@ public class Rectangle {
 
 	public void setHeight(int height) {
 		this.height = getValidDimension(height);
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		if (color.equalsIgnoreCase("black") || color.equalsIgnoreCase("blue") || color.equalsIgnoreCase("red")) {
+			this.color = color;
+		} else {
+			this.color = DEFAULT_COLOR;
+		}
+
 	}
 
 	public int calculateArea() {

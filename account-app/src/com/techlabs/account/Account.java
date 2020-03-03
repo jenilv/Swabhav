@@ -5,6 +5,7 @@ public class Account {
 	private int accountNumber;
 	private String accountName;
 	private double balance;
+	private boolean success = false;
 	private final int MINIMUM_BALANCE = 500;
 
 	public int getAccountNumber() {
@@ -31,13 +32,17 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public double withdraw(double amount) {
+	public void withdraw(double amount) {
 		if (balance - amount > MINIMUM_BALANCE) {
 			balance = balance - amount;
-			return balance;
+			success = true;
 		} else {
-			return -1;
+			success = false;
 		}
+	}
+
+	public boolean isSuccess() {
+		return success;
 	}
 
 	public void deposit(double amount) {

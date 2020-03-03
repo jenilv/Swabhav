@@ -11,12 +11,21 @@ public class AccountTest {
 		account.setAccountNumber(1);
 		account.setBalance(1000);
 		account.deposit(100);
+		account.withdraw(600);
 
-		double bal = account.withdraw(501);
-		if (bal != -1) {
-			System.out.println("Balance left " + bal);
+		printInfo(account);
+
+	}
+
+	private static void printInfo(Account account) {
+		System.out.println("Account Name: " + account.getAccountName());
+		System.out.println("Account Number: " + account.getAccountNumber());
+		System.out.println("Account Balance: " + account.getBalance());
+
+		if (account.isSuccess()) {
+			System.out.println("Remaining balance:" + account.getBalance());
 		} else {
-			System.out.println("Unable to withdraw");
+			System.out.println("Insufficient balance. Minimum balance should be more than 500.");
 		}
 	}
 }
