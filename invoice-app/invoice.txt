@@ -1,0 +1,8 @@
+Invoice No: 1
+Invoice Name: First
+Invoice Amount: 1000.0
+Invoice Discount Percentage: 10.0
+Invoice GST: 18.0
+Invoice Calculate Discount: 900.0
+Invoice Calculate GST: 162.00000643730164
+Invoice Calculate Total Cost: 1062.0000064373016
