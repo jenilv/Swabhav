@@ -2,6 +2,7 @@ package com.techlabs.account;
 
 public class Account {
 
+	private static int ACCOUNT_NUMBER = 100;
 	private int accountNumber;
 	private String accountName;
 	private double balance;
@@ -12,8 +13,8 @@ public class Account {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
+	public void setAccountNumber() {
+		this.accountNumber = ACCOUNT_NUMBER++;
 	}
 
 	public String getAccountName() {

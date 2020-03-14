@@ -1,0 +1,16 @@
+Account Name = JV
+Account Number = 100
+Insufficient balance. Minimum balance should be more than 500.
+=============
+Account Name = Jen
+Account Number = 101
+Remaining balance = 2600.0
+=============
+Account Name = Jenil
+Account Number = 102
+Remaining balance = 600.0
+=============
+Account Name = J
+Account Number = 103
+Remaining balance = 9480.0
+=============

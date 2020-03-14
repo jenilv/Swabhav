@@ -8,7 +8,7 @@ public class AccountTest {
 
 		Account account = new Account();
 		account.setAccountName("JV");
-		account.setAccountNumber(1);
+		account.setAccountNumber();
 		account.setBalance(1000);
 		account.deposit(100);
 		account.withdraw(600);
