@@ -15,6 +15,9 @@ public class PersonTest {
 		Person person2 = new Person("Jen", 20);
 		person2.eat();
 //		printInfo(person2);
+		
+		System.out.println(person.hashCode());
+		System.out.println(person2.hashCode());
 	}
 
 	private static void printInfo(Person person) {

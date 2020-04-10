@@ -43,7 +43,4 @@ public class Student2 {
 	public static int getStudentCount() {
 		return count;
 	}
-//use of final method and final class
-//	diff between global and static variable
-//	diff between static block and constructor
 }
