@@ -133,12 +133,14 @@ public class Customer {
 	}
 
 	public void deleteFromCart(String productName) {
+		Product productToDelete = null;
 		for (Product product : cart) {
 			if (product.getProductName().equalsIgnoreCase(productName)) {
-				cart.remove(product);
+				productToDelete = product;
 			}
 		}
 
+		cart.remove(productToDelete);
 		saveCart();
 	}
 
