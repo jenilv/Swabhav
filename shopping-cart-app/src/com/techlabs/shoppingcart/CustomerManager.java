@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomerManager {
 
-	private final String FILE_NAME = "./Customer.csv";
+	private final String FILE_NAME = "/resources/Customer.csv";
 	private List<Product> cart;
 
 	public CustomerManager(Customer customer) {
