@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import com.techlabs.shoppingcart.Customer;
+import com.techlabs.shoppingcart.CustomerManager;
 import com.techlabs.shoppingcart.Product;
 
 public class ShoppingCartTest {
@@ -11,6 +12,7 @@ public class ShoppingCartTest {
 	public static void main(String[] args) {
 
 		Customer customer = new Customer(1, "JV", Calendar.getInstance(), "Mumbai");
+		CustomerManager manager = new CustomerManager(customer);
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -31,12 +33,12 @@ public class ShoppingCartTest {
 				product.setDiscount(scanner.nextInt());
 
 				System.out.println("Adding product to cart\n" + product.toString());
-				customer.addIntoCart(product);
+				manager.addIntoCart(product);
 				break;
 			}
 			case 2: {
 				System.out.println("Enter Product Name");
-				Product product = customer.searchFromCart(scanner.next());
+				Product product = manager.searchFromCart(scanner.next());
 				if (product != null) {
 					System.out.println(product.toString());
 				} else {
@@ -46,14 +48,14 @@ public class ShoppingCartTest {
 			}
 			case 3: {
 				System.out.println("Enter product name to delete");
-				customer.deleteFromCart(scanner.next());
+				manager.deleteFromCart(scanner.next());
 				System.out.println("Product deleted!");
 			}
 			case 4: {
-				System.out.println("Total cart cost is: " + customer.totalCartCost());
+				System.out.println("Total cart cost is: " + manager.totalCartCost());
 			}
 			case 5: {
-				for (Product product : customer.getAllProducts()) {
+				for (Product product : manager.getAllProducts()) {
 					System.out.println("Product ID: " + product.getProductId());
 					System.out.println("Product Name: " + product.getProductName());
 					System.out.println("Product Cost: " + product.getUnitPrice());
