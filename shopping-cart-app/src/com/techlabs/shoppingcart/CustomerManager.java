@@ -11,7 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerManager {
-
+//	diff between error and exception
+//	compiletime excep occ
+//	handle compile time ex
+//	can we handle or avoid run time
+//	is it possible to throw both compile and run in a single program
+//	is it necessary to extend exception while creating custom exception
+//	how can we handle exception at compile time
+//	how can we handle exception at run time
+//  why throwable is implementing serializable interface
+//	how many exceptions related methods in throwable
 	private final String FILE_NAME = "/resources/Customer.csv";
 	private List<Product> cart;
 
