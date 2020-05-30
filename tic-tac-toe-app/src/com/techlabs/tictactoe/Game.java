@@ -23,9 +23,9 @@ public class Game {
 		return board;
 	}
 
-	public boolean enterPlayerMark(int x, int y) {
-		if (board.getCells()[x][y].getMark() != Mark.B) {
-			return false;
+	public boolean enterPlayerMark(int x, int y) throws CellOccupiedException {
+		if (board.getCells()[x][y].getMark() != Mark.BLANK) {
+			throw new CellOccupiedException("Cell occupied");
 		}
 
 		board.getCells()[x][y].setMark(currentPlayer.getMark());

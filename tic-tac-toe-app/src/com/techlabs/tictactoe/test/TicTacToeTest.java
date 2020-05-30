@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.techlabs.tictactoe.Board;
 import com.techlabs.tictactoe.Cell;
+import com.techlabs.tictactoe.CellOccupiedException;
 import com.techlabs.tictactoe.Game;
 import com.techlabs.tictactoe.Mark;
 import com.techlabs.tictactoe.Player;
@@ -35,9 +36,16 @@ public class TicTacToeTest {
 		System.out.println(players[0].getName() + "'s turn");
 		Game game = new Game(players, new Board(), resultAnalyzer);
 
-		while (game.getResultAnalyzer().getResult() == Result.PLAYING) {
+		while (game.getResultAnalyzer().getResult() == Result.INPROGRESS) {
 			System.out.println("Enter location of mark");
-			if (!game.enterPlayerMark(scanner.nextInt(), scanner.nextInt())) {
+//			if (!game.enterPlayerMark(scanner.nextInt(), scanner.nextInt())) {
+//				System.out.println("Cell occupied please re-enter");
+//				continue;
+//			}
+			try {
+				game.enterPlayerMark(scanner.nextInt(), scanner.nextInt());
+			} catch (CellOccupiedException e) {
+//				e.printStackTrace();
 				System.out.println("Cell occupied please re-enter");
 				continue;
 			}
@@ -45,7 +53,7 @@ public class TicTacToeTest {
 			printBoard(game.getBoard().getCells());
 		}
 
-		if (game.getResultAnalyzer().getResult() == Result.FINISHED) {
+		if (game.getResultAnalyzer().getResult() == Result.WIN) {
 			System.out.println(game.nextPlayer() + "wins!");
 		} else {
 			System.out.println("Game draw!");
@@ -56,7 +64,7 @@ public class TicTacToeTest {
 	private static void printBoard(Cell[][] cells) {
 		for (Cell[] c1 : cells) {
 			for (Cell c2 : c1) {
-				System.out.print(c2.getMark().name() + " ");
+				System.out.print(!c2.getMark().equals(Mark.BLANK) ? c2.getMark().name() + " " : "-" + " ");
 			}
 			System.out.println();
 		}

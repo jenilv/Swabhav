@@ -5,7 +5,7 @@ public class Cell {
 	private Mark mark;
 
 	public Cell() {
-		mark = Mark.B;
+		mark = Mark.BLANK;
 	}
 
 	public Mark getMark() {
