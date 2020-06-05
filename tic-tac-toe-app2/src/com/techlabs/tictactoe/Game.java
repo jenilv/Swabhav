@@ -23,12 +23,15 @@ public class Game {
 		return board;
 	}
 
-	public boolean enterPlayerMark(int x, int y) throws CellOccupiedException {
-		if (board.getCells()[x][y].getMark() != Mark.BLANK) {
+	public boolean enterPlayerMark(int position) throws CellOccupiedException, InvalidPositionException {
+		if (position < 1 || position > board.getCells().length) {
+			throw new InvalidPositionException("Invalid position of cell");
+		}
+		if (board.getCells()[position - 1].getMark() != Mark.BLANK) {
 			throw new CellOccupiedException("Cell occupied");
 		}
 
-		board.getCells()[x][y].setMark(currentPlayer.getMark());
+		board.getCells()[position - 1].setMark(currentPlayer.getMark());
 		resultAnalyzer.analyze(board);
 		return true;
 	}

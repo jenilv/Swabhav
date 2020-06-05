@@ -1,5 +1,11 @@
 package com.techlabs.tictactoe;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class ResultAnalyzer {
 
 	private Result result;
@@ -9,17 +15,16 @@ public class ResultAnalyzer {
 	}
 
 	public void analyze(Board board) {
-		Cell[][] cells = board.getCells();
+		Cell[] cells = board.getCells();
+
 		if (checkRowMatch(cells) || checkColumnMatch(cells) || checkDiagonal(cells) || checkReverseDiagonal(cells)) {
 			result = Result.WIN;
 		}
 
 		int numberOfBlanks = 0;
-		for (Cell[] c1 : cells) {
-			for (Cell cell : c1) {
-				if (cell.getMark().equals(Mark.BLANK)) {
-					numberOfBlanks++;
-				}
+		for (Cell cell : cells) {
+			if (cell.getMark().equals(Mark.BLANK)) {
+				numberOfBlanks++;
 			}
 		}
 
@@ -28,10 +33,21 @@ public class ResultAnalyzer {
 		}
 	}
 
-	public boolean checkRowMatch(Cell[][] cells) {
-		for (Cell[] c1 : cells) {
-			if ((!c1[0].getMark().equals(Mark.BLANK)
-					&& (c1[0].getMark().equals(c1[1].getMark()) && c1[0].getMark().equals(c1[2].getMark())))) {
+	public boolean checkRowMatch(Cell[] cells) {
+
+		int numberOfElements = cells.length;
+		int numberOfRows = (int) Math.sqrt(numberOfElements);
+		List<Cell[]> rows = new ArrayList<>();
+		for (int i = 0; i < numberOfRows; i++) {
+			rows.add(new Cell[numberOfRows]);
+			for (int j = i * numberOfRows, c = 0; c < numberOfRows; j++, c++) {
+				rows.get(i)[c] = cells[j];
+			}
+		}
+
+		for (Cell[] c : rows) {
+			Set<Cell> set = new HashSet<>(Arrays.asList(c));
+			if (set.size() == 1 && !set.iterator().next().getMark().equals(Mark.BLANK)) {
 				return true;
 			}
 		}
@@ -39,82 +55,56 @@ public class ResultAnalyzer {
 		return false;
 	}
 
-	public boolean checkColumnMatch(Cell[][] cells) {
-
-		Cell[][] transposedCells = new Cell[3][3];
-
-		int m = cells.length;
-		int n = cells[0].length;
-		for (int x = 0; x < n; x++) {
-			for (int y = 0; y < m; y++) {
-				transposedCells[x][y] = cells[y][x];
+	public boolean checkColumnMatch(Cell[] cells) {
+		int numberOfElements = cells.length;
+		int numberOfColumns = (int) Math.sqrt(numberOfElements);
+		List<Cell[]> columns = new ArrayList<>();
+		for (int i = 0; i < numberOfColumns; i++) {
+			columns.add(new Cell[numberOfColumns]);
+			for (int j = i, c = 0; c < numberOfColumns; c++, j += numberOfColumns) {
+				columns.get(i)[c] = cells[j];
 			}
 		}
 
-		return checkRowMatch(transposedCells);
+		for (Cell[] c : columns) {
+			Set<Cell> set = new HashSet<>(Arrays.asList(c));
+			if (set.size() == 1 && !set.iterator().next().getMark().equals(Mark.BLANK)) {
+				return true;
+			}
+		}
 
-//		if ((!cells[0][0].getMark().equals(Mark.BLANK)
-//				&& (cells[0][0].getMark().equals(cells[1][0].getMark())
-//						&& cells[0][0].getMark().equals(cells[2][0].getMark()))
-//				|| (!cells[0][1].getMark().equals(Mark.BLANK) && (cells[0][1].getMark().equals(cells[1][1].getMark())
-//						&& cells[0][1].getMark().equals(cells[2][1].getMark()))))
-//				|| (!cells[0][2].getMark().equals(Mark.BLANK) && (cells[0][2].getMark().equals(cells[1][2].getMark())
-//						&& cells[0][2].getMark().equals(cells[2][2].getMark())))) {
-//			return true;
-//		}
-
-//		return false;
+		return false;
 	}
 
-	public boolean checkDiagonal(Cell[][] cells) {
-		if ((!cells[0][0].getMark().equals(Mark.BLANK) && (cells[0][0].getMark() == cells[1][1].getMark()
-				&& cells[0][0].getMark() == cells[2][2].getMark()))) {
+	public boolean checkDiagonal(Cell[] cells) {
+		int numberOfElements = cells.length;
+		int numberOfDiagonalElements = (int) Math.sqrt(numberOfElements);
+		List<Cell> diagonalCells = new ArrayList<>();
+		for (int i = 0; i < cells.length; i += numberOfDiagonalElements + 1) {
+			diagonalCells.add(cells[i]);
+		}
+		Set<Cell> set = new HashSet<>(diagonalCells);
+		if (set.size() == 1 && !set.iterator().next().getMark().equals(Mark.BLANK)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public boolean checkReverseDiagonal(Cell[][] cells) {
-		if ((!cells[0][2].getMark().equals(Mark.BLANK) && (cells[0][2].getMark() == cells[1][1].getMark()
-				&& cells[0][2].getMark() == cells[2][0].getMark()))) {
+	public boolean checkReverseDiagonal(Cell[] cells) {
+		int numberOfElements = cells.length;
+		int numberOfDiagonalElements = (int) Math.sqrt(numberOfElements);
+		List<Cell> diagonalCells = new ArrayList<>();
+		for (int i = 0; i < cells.length; i += numberOfDiagonalElements - 1) {
+			diagonalCells.add(cells[i]);
+		}
+		Set<Cell> set = new HashSet<>(diagonalCells);
+		if (set.size() == 1 && !set.iterator().next().getMark().equals(Mark.BLANK)) {
 			return true;
 		}
+
 		return false;
 	}
-
-//	private boolean checkLines(Cell[][] cells) {
-//		if ((!cells[0][0].getMark().equals(Mark.B)
-//				&& (cells[0][0].getMark() == cells[0][1].getMark() && cells[0][0].getMark() == cells[0][2].getMark()))
-//				|| (!cells[1][0].getMark().equals(Mark.B) && cells[1][0].getMark() == cells[1][1].getMark()
-//						&& cells[1][0].getMark() == cells[1][2].getMark())
-//				|| (!cells[2][0].getMark().equals(Mark.B) && cells[2][0].getMark() == cells[2][1].getMark()
-//						&& cells[2][0].getMark() == cells[2][2].getMark())) {
-//			return true;
-//		}
-//
-//		if ((!cells[0][0].getMark().equals(Mark.B)
-//				&& (cells[0][0].getMark() == cells[1][0].getMark() && cells[0][0].getMark() == cells[2][0].getMark()))
-//				|| (!cells[0][1].getMark().equals(Mark.B) && cells[0][1].getMark() == cells[1][1].getMark()
-//						&& cells[0][1].getMark() == cells[2][1].getMark())
-//				|| (!cells[0][2].getMark().equals(Mark.B) && cells[0][2].getMark() == cells[1][2].getMark()
-//						&& cells[0][2].getMark() == cells[2][2].getMark())) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
-
-//	private boolean checkDiagonal(Cell[][] cells) {
-//		if ((!cells[0][0].getMark().equals(Mark.B)
-//				&& (cells[0][0].getMark() == cells[1][1].getMark() && cells[0][0].getMark() == cells[2][2].getMark()))
-//				|| (!cells[0][2].getMark().equals(Mark.B) && (cells[0][2].getMark() == cells[1][1].getMark()
-//						&& cells[0][2].getMark() == cells[2][0].getMark()))) {
-//			return true;
-//		}
-//
-//		return false;
-//	}
 
 	public Result getResult() {
 		return result;

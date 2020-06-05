@@ -11,13 +11,11 @@ public class BoardTest {
 
 	@Test
 	public void checkIfBoardCreatedWithProperNumberOfCells() {
-		Board board = new Board();
+		Board board = new Board(3);
 
 		int numberOfCells = 0;
-		for (Cell[] cells : board.getCells()) {
-			for (Cell cell : cells) {
-				numberOfCells++;
-			}
+		for (Cell cell : board.getCells()) {
+			numberOfCells++;
 		}
 
 		assertEquals(9, numberOfCells);

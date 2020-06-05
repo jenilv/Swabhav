@@ -2,17 +2,16 @@ package com.techlabs.tictactoe;
 
 public class Board {
 
-	private Cell[][] cells = new Cell[3][3];
+	private final Cell[] cells;
 
-	public Board() {
+	public Board(int gridSize) {
+		cells = new Cell[gridSize * gridSize];
 		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells.length; j++) {
-				cells[i][j] = new Cell();
-			}
+			cells[i] = new Cell();
 		}
 	}
 
-	public Cell[][] getCells() {
+	public Cell[] getCells() {
 		return cells;
 	}
 

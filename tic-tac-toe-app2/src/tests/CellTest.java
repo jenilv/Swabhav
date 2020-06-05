@@ -12,14 +12,12 @@ public class CellTest {
 
 	@Test
 	public void checkIfCellsBlankOnStart() {
-		Board board = new Board();
+		Board board = new Board(3);
 
 		int emptyCells = 0;
-		for (Cell[] cells : board.getCells()) {
-			for (Cell cell : cells) {
-				if (cell.getMark().equals(Mark.BLANK)) {
-					emptyCells++;
-				}
+		for (Cell cell : board.getCells()) {
+			if (cell.getMark().equals(Mark.BLANK)) {
+				emptyCells++;
 			}
 		}
 
@@ -28,10 +26,10 @@ public class CellTest {
 
 	@Test
 	public void checkIfMarkedProperly() {
-		Board board = new Board();
+		Board board = new Board(3);
 
-		board.getCells()[0][1].setMark(Mark.O);
+		board.getCells()[0].setMark(Mark.O);
 
-		assertEquals(Mark.O, board.getCells()[0][1].getMark());
+		assertEquals(Mark.O, board.getCells()[0].getMark());
 	}
 }

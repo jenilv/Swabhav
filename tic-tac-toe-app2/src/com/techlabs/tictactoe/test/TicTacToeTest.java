@@ -6,6 +6,7 @@ import com.techlabs.tictactoe.Board;
 import com.techlabs.tictactoe.Cell;
 import com.techlabs.tictactoe.CellOccupiedException;
 import com.techlabs.tictactoe.Game;
+import com.techlabs.tictactoe.InvalidPositionException;
 import com.techlabs.tictactoe.Mark;
 import com.techlabs.tictactoe.Player;
 import com.techlabs.tictactoe.Result;
@@ -30,43 +31,45 @@ public class TicTacToeTest {
 		System.out.println("Enter Player2 name");
 		String player2Name = scanner.next();
 
+		System.out.println("Enter grid size of board");
+		int boardSize = scanner.nextInt();
+
 		Player[] players = new Player[] { new Player(player1Name, p1Mark), new Player(player2Name, p2Mark) };
 		ResultAnalyzer resultAnalyzer = new ResultAnalyzer();
 		System.out.println("Let's play!");
 		System.out.println(players[0].getName() + "'s turn");
-		Game game = new Game(players, new Board(), resultAnalyzer);
+		Game game = new Game(players, new Board(boardSize), resultAnalyzer);
 
 		while (game.getResultAnalyzer().getResult() == Result.INPROGRESS) {
 			System.out.println("Enter location of mark");
-//			if (!game.enterPlayerMark(scanner.nextInt(), scanner.nextInt())) {
-//				System.out.println("Cell occupied please re-enter");
-//				continue;
-//			}
+
 			try {
-				game.enterPlayerMark(scanner.nextInt(), scanner.nextInt());
+				game.enterPlayerMark(scanner.nextInt());
 			} catch (CellOccupiedException e) {
-//				e.printStackTrace();
 				System.out.println("Cell occupied please re-enter");
 				continue;
+			} catch (InvalidPositionException e) {
+				System.out.println("Invalid position of cell entered please re-enter");
 			}
-			game.nextPlayer();
+			System.out.println(game.nextPlayer().getName() + "'s turn");
 			printBoard(game.getBoard().getCells());
 		}
 
 		if (game.getResultAnalyzer().getResult() == Result.WIN) {
-			System.out.println(game.nextPlayer() + "wins!");
+			System.out.println(game.nextPlayer().getName() + "wins!");
 		} else {
 			System.out.println("Game draw!");
 		}
 
 	}
 
-	private static void printBoard(Cell[][] cells) {
-		for (Cell[] c1 : cells) {
-			for (Cell c2 : c1) {
-				System.out.print(!c2.getMark().equals(Mark.BLANK) ? c2.getMark().name() + " " : "-" + " ");
+	private static void printBoard(Cell[] cells) {
+		for (int i = 0; i < cells.length; i++) {
+			if (i > 0 && i % (Math.sqrt(cells.length)) == 0) {
+				System.out.println();
 			}
-			System.out.println();
+			System.out.print(!cells[i].getMark().equals(Mark.BLANK) ? cells[i].getMark().name() + " " : "-" + " ");
 		}
+		System.out.println();
 	}
 }
