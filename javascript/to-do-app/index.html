@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do App</title>
+    <style>
+      .create {
+        float: left;
+        width: 50%;
+      }
+
+      .display {
+        margin-left: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="create" id="add_div">
+      <h2>Add Task</h2>
+      <label>Task Name</label>
+      <br />
+      <input type="text" id="add_task" />
+      <br />
+      <br />
+      <label>Time</label>
+      <br />
+      <input type="text" id="add_time" />
+      <br />
+      <br />
+      <button id="add_button">Add Task</button>
+    </div>
+    <div class="display" id="display_div">
+      <h2>Task List</h2>
+      <div id="task_list"></div>
+    </div>
+    <script src="todo.js"></script>
+  </body>
+</html>

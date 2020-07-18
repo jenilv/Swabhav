@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="loop.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      p {
+        text-align: center;
+        color: blue;
+      }
+      #id {
+        text-align: center;
+        color: red;
+      }
+      .center {
+        text-align: left-top;
+        color: purple;
+      }
+      a[title~="swabhav"] {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>welcome to swabhav techlabs</h1>
+    <p id="id">Hello jenil in swabhav</p>
+    <h3 class="center">This heading is of purple color</h3>
+    <a href="https://www.swabhav.com"></a>
+    <a href="http://www.swabahvtechlab.com" title="swabhav "></a>
+    <a href="http://www.swabahvtechlabs" title="swabhav">swabhav </a>
+    <script>
+      document.querySelector("#id").style.backgroundColor = "grey";
+      document.querySelector("h1").style.backgroundColor = "green";
+      document.querySelector("h1").style.fontSize = "8px";
+    </script>
+  </body>
+</html>

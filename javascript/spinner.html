@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spinner</title>
+  </head>
+  <body>
+    <img src="5.gif" id="loader" />
+    <br />
+    <input type="checkbox" id="cbLoader" checked="true" >Show Loader</input>
+    <script>
+      var checkbox = document.getElementById("cbLoader");
+      checkbox.addEventListener("change", function (event) {
+        if (event.target.checked) {
+          document.getElementById("loader").hidden = false;
+        } else {
+          document.getElementById("loader").hidden = true;
+        }
+      });
+    </script>
+  </body>
+</html>

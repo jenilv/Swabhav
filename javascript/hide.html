@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hide</title>
+  </head>
+  <body>
+    <button id="hide">Hide</button>
+    <br />
+    <p id="paragraph">This is a paragraph with little content.</p>
+    <script>
+      var hide = document.getElementById("hide");
+      hide.addEventListener("click", function () {
+        document.getElementById("paragraph").hidden = !document.getElementById(
+          "paragraph"
+        ).hidden;
+        if (document.getElementById("paragraph").hidden) {
+          this.innerHTML = "Show";
+        } else {
+          this.innerHTML = "Hide";
+        }
+      });
+    </script>
+  </body>
+</html>

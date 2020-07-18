@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider</title>
+  </head>
+  <body>
+    <br />
+    <input
+      type="range"
+      min="1"
+      max="100"
+      value="50"
+      class="slider"
+      id="slider"
+      onchange="updateValue(this.value)"
+    />
+    <br />
+    <label id="sliderValue">Number = 50</label>
+    <script>
+      function updateValue(value) {
+        document.getElementById("sliderValue").innerHTML = "Number = " + value;
+        if (document.getElementById("buttons") != null) {
+          document.getElementById("buttons").remove();
+        }
+        var div = document.createElement("div");
+        div.id = "buttons";
+        document.body.appendChild(div);
+        for (let index = 0; index < value; index++) {
+          var button = document.createElement("button");
+          button.innerHTML = index;
+          div.appendChild(button);
+        }
+      }
+    </script>
+  </body>
+</html>
