@@ -1,55 +1,59 @@
+// Load google charts
+google.charts.load("current", { packages: ["corechart"] });
+google.charts.setOnLoadCallback(drawChart);
+
 const questions = [
   {
-    question: "Question number 1",
+    question: "What is Javascript file extension?",
     options: {
-      a: "q1 Option a",
-      b: "q1 Option b",
-      c: "q1 Option c",
-      d: "q1 Option d",
-    },
-    answer: "a",
-    selected: null,
-  },
-  {
-    question: "Question number 2",
-    options: {
-      a: "q2 Option a",
-      b: "q2 Option b",
-      c: "q2 Option c",
-      d: "q2 Option d",
-    },
-    answer: "a",
-    selected: null,
-  },
-  {
-    question: "Question number 3",
-    options: {
-      a: "q3 Option a",
-      b: "q3 Option b",
-      c: "q3 Option c",
-      d: "q3 Option d",
-    },
-    answer: "b",
-    selected: null,
-  },
-  {
-    question: "Question number 4",
-    options: {
-      a: "q4 Option a",
-      b: "q4 Option b",
-      c: "q4 Option c",
-      d: "q4 Option d",
+      a: ".ts",
+      b: ".cs",
+      c: ".js",
+      d: ".java",
     },
     answer: "c",
     selected: null,
   },
   {
-    question: "Question number 5",
+    question: "What is html file extention?",
     options: {
-      a: "q5 Option a",
-      b: "q5 Option b",
-      c: "q5 Option c",
-      d: "q5 Option d",
+      a: ".py",
+      b: ".html",
+      c: ".jsp",
+      d: ".dll",
+    },
+    answer: "b",
+    selected: null,
+  },
+  {
+    question: "Which is ECMAScript latest edition?",
+    options: {
+      a: "Edition 11",
+      b: "Edition 5",
+      c: "Edition 7",
+      d: "Edition 9",
+    },
+    answer: "a",
+    selected: null,
+  },
+  {
+    question: "How to add dynamic behaviour in html?",
+    options: {
+      a: "Using CSS",
+      b: "Using Java",
+      c: "Using Javascript",
+      d: "Cannot add",
+    },
+    answer: "c",
+    selected: null,
+  },
+  {
+    question: "Get element by id in Javascript",
+    options: {
+      a: "document.getElementById",
+      b: "document.getElementByName",
+      c: "document.getElementByTag",
+      d: "document.getElementByClass",
     },
     answer: "a",
     selected: null,
@@ -59,17 +63,24 @@ var nextButton = document.createElement("button");
 var previousButton = document.createElement("button");
 var submitButton = document.createElement("button");
 var buttonDiv = document.createElement("div");
+var questionsDiv = document.getElementById("questions");
+var mainDiv = document.getElementById("main");
 
 var currentQuestion = -1;
 
 function init() {
-  document.body.appendChild(buttonDiv);
+  insertAfter(questionsDiv, buttonDiv);
   nextButton.innerHTML = "Next Question";
   previousButton.innerHTML = "Previous Question";
   submitButton.innerHTML = "Submit";
   nextButton.addEventListener("click", displayNextQuestion);
   previousButton.addEventListener("click", displayPreviousQuestion);
   submitButton.addEventListener("click", submit);
+  previousButton.className = "btn";
+  nextButton.className = "btn";
+  submitButton.className = "btn";
+  previousButton.style.marginRight = "8px";
+  nextButton.style.marginRight = "8px";
   buttonDiv.appendChild(previousButton);
   buttonDiv.appendChild(nextButton);
   buttonDiv.appendChild(submitButton);
@@ -94,7 +105,7 @@ function displayNextQuestion() {
   }
 
   var question = createQuestionDiv(questions[currentQuestion]);
-  document.body.appendChild(question);
+  questionsDiv.appendChild(question);
 }
 
 function displayPreviousQuestion() {
@@ -110,27 +121,49 @@ function displayPreviousQuestion() {
   }
 
   var question = createQuestionDiv(questions[currentQuestion]);
-  document.body.appendChild(question);
+  questionsDiv.appendChild(question);
 }
 
 function submit() {
   if (confirm("Are you sure you want to submit?")) {
+    var correct = 0,
+      incorrect = 0,
+      unanswered = 0;
+    questions.forEach((element) => {
+      if (element.selected == element.answer) {
+        correct++;
+      } else if (element.selected == null) {
+        unanswered++;
+      } else {
+        incorrect++;
+      }
+    });
     var nodes = buttonDiv.childNodes;
     for (let index = 0; index < nodes.length; index++) {
       nodes[index].disabled = true;
     }
-    if (document.contains(document.getElementById("questionDiv"))) {
-      document.getElementById("questionDiv").remove();
+    if (document.contains(document.getElementById("questions"))) {
+      document.getElementById("questions").remove();
+    }
+    if (document.contains(buttonDiv)) {
+      buttonDiv.remove();
     }
     displayAnswers();
   }
 }
 
 function displayAnswers() {
+  if (document.contains(mainDiv)) {
+    mainDiv.remove();
+  }
+
+  var main = document.createElement("div");
+
   var correct = 0;
   var incorrect = 0;
   var unanswered = 0;
   var answerDiv = document.createElement("div");
+
   questions.forEach((element) => {
     if (element.selected == element.answer) {
       correct++;
@@ -153,7 +186,6 @@ function displayAnswers() {
 
     que.appendChild(yourAnswer);
     que.appendChild(correctAnswer);
-
     answerDiv.append(que);
   });
 
@@ -166,28 +198,42 @@ function displayAnswers() {
     "/5 <br/> Unanswered: " +
     unanswered +
     "/5";
-  document.body.appendChild(answerDiv);
-  document.body.appendChild(correctAnswers);
+  6;
+  answerDiv.style.float = "left";
+  answerDiv.style.width = "50%";
+  answerDiv.appendChild(correctAnswers);
+  main.appendChild(answerDiv);
+  // mainDiv.appendChild(correctAnswers);
+  var pie = document.createElement("div");
+  pie.id = "piechart";
+  pie.style.marginLeft = "50%";
+
+  main.appendChild(pie);
+  document.body.appendChild(main);
+
+  drawChart(correct, unanswered, incorrect);
 }
 
 function createQuestionDiv(question) {
   var questionDiv = document.createElement("div");
   questionDiv.id = "questionDiv";
+  questionDiv.style.width = "500px";
 
-  var p = document.createElement("p");
+  var p = document.createElement("h3");
   p.innerHTML = question.question;
   questionDiv.appendChild(p);
 
   var selected = question.selected;
+  var rbDiv = document.createElement("div");
+  rbDiv.style.textAlign = "left";
+  rbDiv.style.marginLeft = "20%";
+
   Object.keys(question.options).forEach((element) => {
-    createRadioElement(
-      questionDiv,
-      element,
-      question.options[element],
-      selected
-    );
-    questionDiv.appendChild(document.createElement("br"));
+    createRadioElement(rbDiv, element, question.options[element], selected);
   });
+
+  questionDiv.appendChild(rbDiv);
+  questionDiv.appendChild(document.createElement("br"));
 
   return questionDiv;
 }
@@ -198,7 +244,7 @@ function setSelected(key) {
   questions[currentQuestion] = que;
 }
 
-function createRadioElement(queDiv, key, value, selected) {
+function createRadioElement(rbDiv, key, value, selected) {
   var label = document.createElement("label");
 
   var element = document.createElement("input");
@@ -206,6 +252,7 @@ function createRadioElement(queDiv, key, value, selected) {
   element.setAttribute("value", "option");
   element.setAttribute("name", "option");
   element.setAttribute("id", key);
+  element.style.marginBottom = "8px";
 
   if (selected != null && selected == key) {
     element.checked = true;
@@ -215,9 +262,31 @@ function createRadioElement(queDiv, key, value, selected) {
   });
   label.innerHTML += value;
 
-  queDiv.appendChild(element);
-  queDiv.appendChild(label);
+  rbDiv.appendChild(element);
+  rbDiv.appendChild(label);
+  rbDiv.appendChild(document.createElement("br"));
+}
+
+// Draw the chart and set the chart values
+function drawChart(correct, unanswered, incorrect) {
+  var data = google.visualization.arrayToDataTable([
+    ["Questions", "Result"],
+    ["Correct", correct],
+    ["Incorrect", incorrect],
+    ["Unanswered", unanswered],
+  ]);
+  // Optional; add a title and set the width and height of the chart
+  var options = { title: "Test results", width: 550, height: 400 };
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(
+    document.getElementById("piechart")
+  );
+  chart.draw(data, options);
 }
 
 init();
 displayNextQuestion();
+
+function insertAfter(referenceNode, newNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}

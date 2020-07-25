@@ -4,16 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do App</title>
-    <style>
-      .create {
-        float: left;
-        width: 50%;
-      }
-
-      .display {
-        margin-left: 50%;
-      }
-    </style>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div class="create" id="add_div">
@@ -30,9 +21,13 @@
       <br />
       <button id="add_button">Add Task</button>
     </div>
-    <div class="display" id="display_div">
-      <h2>Task List</h2>
-      <div id="task_list"></div>
+    <div class="display_pending" id="display_pending">
+      <h2>Pending Task List</h2>
+      <div id="pending_task_list"></div>
+    </div>
+    <div class="display_done" id="display_done">
+      <h2>Done Task List</h2>
+      <div id="done_task_list"></div>
     </div>
     <script src="todo.js"></script>
   </body>

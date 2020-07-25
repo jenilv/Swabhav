@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module</title>
+  </head>
+  <body>
+    <script>
+      var module = (function () {
+        var privateProperty1 = 1;
+        var privateProperty2 = 10;
+        return {
+          publicProperty1: 100,
+          publicProperty2: 200,
+        };
+      })();
+
+      function Student() {
+        this.name = "John";
+        this.gender = "M";
+      }
+
+      Student.prototype.age = 15;
+
+      var studObj1 = new Student();
+      //   alert(studObj1.age);
+      console.log((studObj1.a = 19));
+
+      var studObj2 = new Student();
+      //   alert(studObj2.age);
+    </script>
+    <script>
+      function Employee(id, name) {
+        this.id = id;
+        this.name = name;
+      }
+      var q = new Employee();
+      console.log("EMP PRO" + Employee.prototype == q.__proto__);
+      Employee.prototype.getDetails = function () {
+        return "Id: " + this.id + " Name: " + this.name;
+      };
+      var e1 = new Employee(1, "Abc");
+      console.log(e1);
+      console.log(e1.getDetails());
+      console.log(Employee.prototype == e1.__proto__); //true
+
+      var e2 = new Employee(2, "Def");
+      console.log(e2);
+
+      console.log(Employee.prototype == e2.__proto__); //true
+
+      console.log(e1.__proto__ == e2.__proto__); //true
+
+      console.log(Employee.prototype.__proto__); // object
+      console.log(Object.prototype.__proto__); //?? null
+
+      console.log(Employee.prototype.__proto__ == Object.prototype);
+    </script>
+  </body>
+</html>

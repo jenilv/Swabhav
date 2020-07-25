@@ -1,5 +1,7 @@
 var div = document.getElementById("buttons");
+div.style.textAlign = "center";
 var result = document.getElementById("result");
+div.style.textAlign = "center";
 var number = Math.floor(Math.random() * 51);
 var guesses = 0;
 var finished = false;
