@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Increment</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body ng-app="myApp">
+    <div ng-controller="studentController">
+      <button ng-click="showStudents()">Show Students</button>
+      <br />
+      <br />
+      <br />
+      <table ng-show="show">
+        <tr>
+          <th>Roll Number</th>
+          <th>Name</th>
+          <th>cgpa</th>
+        </tr>
+        <tr ng-repeat="student in students | filter:{item:'!'} track by $index">
+          <td><img src="{{student.image}}" height="50" width="50" /></td>
+          <td>{{student.roll}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.cgpa}}</td>
+        </tr>
+      </table>
+    </div>
+    <br />
+    <br />
+
+    <script src="angular-js.js"></script>
+
+    <script>
+      var application = angular.module("myApp", []);
+
+      application.controller("studentController", function ($scope) {
+        $scope.students = [
+          {
+            image: "person.jpg",
+            roll: 101,
+            name: "Sachin",
+            cgpa: 7.5,
+          },
+          {
+            image: "index.png",
+            roll: 103,
+            name: "JV",
+            cgpa: 5.5,
+          },
+          ,
+          {
+            image: "person.jpg",
+            roll: 104,
+            name: "JV",
+            cgpa: 4.5,
+          },
+          ,
+          {
+            image: "index.png",
+            roll: 105,
+            name: "J",
+            cgpa: 8.5,
+          },
+          ,
+          {
+            image: "person.jpg",
+            roll: 106,
+            name: "V",
+            cgpa: 9.5,
+          },
+        ];
+
+        $scope.show = false;
+
+        $scope.showStudents = function () {
+          $scope.show = !$scope.show;
+        };
+      });
+    </script>
+  </body>
+</html>

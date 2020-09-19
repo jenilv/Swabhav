@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Increment</title>
+  </head>
+  <body ng-app="myApp">
+    <div ng-controller="incrementController">
+      <button ng-click="increment()">Increment</button>
+    </div>
+    <div ng-controller="decrementController">
+      <br />
+      <button ng-click="decrement()">Decrement</button>
+    </div>
+    <br />
+    <br />
+
+    {{counter}}
+    <script src="angular-js.js"></script>
+
+    <script>
+      var application = angular.module("myApp", []);
+
+      var f = application.factory("counter", function () {
+        var counterObject = {};
+        var counter = 0;
+        counterObject.increment = function () {
+          return (counter += 1);
+        };
+        counterObject.decrement = function () {
+          return (counter -= 1);
+        };
+        counterObject.getCount = function () {
+          return counter;
+        };
+        return counterObject;
+      });
+
+      console.log(f);
+
+      application.controller("incrementController", function (
+        $rootScope,
+        $scope,
+        counter
+      ) {
+        $scope.increment = function () {
+          $rootScope.counter = counter.increment();
+        };
+      });
+      application.controller("decrementController", function (
+        $rootScope,
+        $scope,
+        counter
+      ) {
+        $scope.decrement = function () {
+          $rootScope.counter = counter.decrement();
+        };
+      });
+    </script>
+  </body>
+</html>

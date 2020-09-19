@@ -4,9 +4,23 @@ const addTimeText = document.getElementById("add_time");
 const pendingTaskList = document.getElementById("pending_task_list");
 const doneTaskList = document.getElementById("done_task_list");
 const addTaskButton = document.getElementById("add_button");
+var pendingTasks;
+var doneTasks;
 
-const pendingTasks = [];
-const doneTasks = [];
+if (localStorage.getItem("pendingTasks") != null) {
+  pendingTasks = JSON.parse(localStorage.getItem("pendingTasks"));
+} else {
+  pendingTasks = [];
+}
+
+if (localStorage.getItem("doneTasks") != null) {
+  doneTasks = JSON.parse(localStorage.getItem("doneTasks"));
+} else {
+  doneTasks = [];
+}
+
+displayDone();
+displayPending();
 
 addTaskButton.addEventListener("click", addTask);
 
@@ -16,11 +30,14 @@ function addTask() {
     taskTime: addTimeText.value,
   });
 
+  localStorage.setItem("pendingTasks", JSON.stringify(pendingTasks));
+
   displayPending();
 }
 
 function remove(index) {
   pendingTasks.splice(index, 1);
+  localStorage.setItem("pendingTasks", JSON.stringify(pendingTasks));
   displayPending();
   displayDone();
 }
@@ -28,7 +45,9 @@ function remove(index) {
 function markAsDone(index) {
   var obj = pendingTasks[index];
   doneTasks.push(obj);
+  localStorage.setItem("doneTasks", JSON.stringify(doneTasks));
   pendingTasks.splice(index, 1);
+  localStorage.setItem("pendingTasks", JSON.stringify(pendingTasks));
   displayPending();
   displayDone();
 }

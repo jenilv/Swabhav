@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Numbers</title>
+    <script src="angular-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+  </head>
+  <body ng-app="myApp" ng-controller="myCtrl">
+    <label>Enter your number: </label>
+    <input type="number" id="num" ng-model="number" /> <br />
+    <button ng-click="getFact()">Get facts</button>
+    <div>
+      <table
+        ng-style="{  'font-family': 'arial, sans-serif',
+        'border-collapse': 'collapse',
+        'width': '100%'
+      }"
+      >
+        <tr>
+          <th
+            ng-style="{
+            'border': '1px solid #dddddd',
+            'text-align': 'left',
+            'padding': '8px',
+            'background-color': '#46a049',
+            'color': 'white'
+          }"
+          >
+            Fact
+          </th>
+          <th
+            ng-style="{
+                'border': '1px solid #dddddd',
+                'text-align': 'left',
+                'padding': '8px',
+                'background-color': '#46a049',
+                'color': 'white'
+              }"
+          >
+            Time
+          </th>
+        </tr>
+        <tr ng-repeat="fact in facts | filter:{item:'!'} track by $index">
+          <td>{{fact.fact}}</td>
+          <td>{{fact.time}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      var app = angular.module("myApp", []);
+      app.controller("myCtrl", [
+        "$scope",
+        "$http",
+        function ($scope, $http) {
+          $scope.number = 0;
+          $scope.facts = [];
+          $scope.getFact = function () {
+            $http
+              .get("http://numbersapi.com/" + $scope.number)
+              .then(function (response) {
+                $scope.facts.push({
+                  fact: response.data,
+                  time: moment(new Date()).fromNow(),
+                });
+              });
+          };
+        },
+      ]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Providers</title>
+  </head>
+  <body ng-app="myApp">
+    <script src="angular-js.js"></script>
+    <h1 style="color: green">GeeksforGeeks</h1>
+    <h2>Factory Examples</h2>
+    <div ng-controller="thisapp">
+      <button ng-click="generateRandom()">Generate Random Number</button>
+      <br />{{randomNumber}}
+      <br />
+      <br />
+      <br />
+    </div>
+
+    <div ng-controller="thisapp2">
+      <button ng-click="checkRandom()">Generate Random Number</button>
+      <br />{{oddOrEven}}
+      <br />
+      <br />
+      <br />
+    </div>
+
+    <script>
+      var application = angular.module("myApp", []);
+
+      application.factory("random", function () {
+        var randomObject = {};
+        var number = Math.floor(Math.random() * 100);
+        randomObject.generate = function () {
+          return number;
+        };
+        randomObject.checkRandom = function () {
+          return number % 2 == 0 ? "Even" : "Odd";
+        };
+        return randomObject;
+      });
+
+      application.controller("thisapp", function ($rootScope, $scope, random) {
+        $scope.generateRandom = function () {
+          $rootScope.randomNumber = random.generate();
+        };
+      });
+      application.controller("thisapp2", function ($rootScope, $scope, random) {
+        $scope.checkRandom = function () {
+          $rootScope.oddOrEven = random.checkRandom();
+        };
+      });
+    </script>
+  </body>
+</html>

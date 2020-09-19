@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do App</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="create" id="add_div">
+      <h2>Add Task</h2>
+      <label>Task Name</label>
+      <br />
+      <input type="text" id="add_task" />
+      <br />
+      <br />
+      <label>Time</label>
+      <br />
+      <input type="text" id="add_time" />
+      <br />
+      <br />
+      <button id="add_button">Add Task</button>
+    </div>
+    <div class="display_pending" id="display_pending">
+      <h2>Pending Task List</h2>
+      <div id="pending_task_list"></div>
+    </div>
+    <div class="display_done" id="display_done">
+      <h2>Done Task List</h2>
+      <div id="done_task_list"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="todo.js"></script>
+  </body>
+</html>

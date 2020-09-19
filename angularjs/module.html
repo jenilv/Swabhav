@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modules</title>
+    <script src="angular-js.js"></script>
+  </head>
+  <body>
+    <div ng-app="modA">
+      <section ng-controller="controllerA">
+        <h1>{{msg}}</h1>
+        <h1>{{message}}</h1>
+      </section>
+      <section ng-controller="controllerB">
+        <h1>{{msg}}</h1>
+        <h1>{{message}}</h1>
+      </section>
+    </div>
+    <script>
+      var a = angular.module("modA", ["modB"]);
+      a.controller("controllerA", function ($rootScope, $scope) {
+        $scope.msg = "Controller A says Hello";
+        $rootScope.message = "this is rootscope message from a";
+      });
+      var b = angular.module("modB", []);
+      b.controller("controllerB", function ($rootScope, $scope) {
+        $scope.msg = "Controller B says Hello";
+        $rootScope.message = "this is rootscope message from b";
+      });
+    </script>
+  </body>
+</html>

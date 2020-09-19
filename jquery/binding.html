@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binding</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <label>Your text: </label>
+    <input type="text" id="name" />
+    <br />
+    <br />
+    <label>Font size: </label>
+    <input type="number" id="font_size" name="font_size" min="1" max="100" />
+    <br />
+    <br />
+    <label>Background color: </label>
+    <input type="text" id="background" />
+    <br />
+    <br />
+    <label>Foreground color: </label>
+    <input type="text" id="foreground" />
+    <br />
+    <br />
+
+    <p id="display"></p>
+  </body>
+
+  <script>
+    var $name = $("#name");
+    var $fontSize = $("#font_size");
+    var $background = $("#background");
+    var $foreground = $("#foreground");
+    var $display = $("#display");
+    $name.change(function () {
+      $display.text($name.val());
+    });
+
+    $fontSize.change(function () {
+      $display.css("font-size", $(this).val() + "px");
+    });
+
+    $background.change(function () {
+      $display.css("background-color", $(this).val());
+    });
+    $foreground.change(function () {
+      $display.css("color", $(this).val());
+    });
+  </script>
+</html>

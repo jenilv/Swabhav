@@ -1,0 +1,11 @@
+.create {
+  float: left;
+  width: 50%;
+}
+.display_done {
+  float: right;
+  width: 50%;
+}
+ul {
+  list-style-position: inside;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body ng-app>
+    <form name="loginForm" novalidate>
+      <label for="username">Username: </label> <br />
+      <input
+        type="text"
+        name="username"
+        ng-model="person.username"
+        ng-required="true"
+      />
+      <span
+        ng-show="loginForm.username.$touched && loginForm.username.$error.required"
+        style="color: red"
+        >Username is required.</span
+      ><br /><br />
+      <label for="password">Password</label> <br />
+      <input
+        type="password"
+        name="password"
+        ng-model="person.password"
+        ng-required="true"
+        ng-minlength="8"
+        ng-pattern="/^(?=.*\d)(?=.*([a-z]|[A-Z]))([\x20-\x7E]){8,}$/"
+      />
+      <span
+        ng-show="loginForm.password.$touched && loginForm.password.$error.required"
+        style="color: red"
+        >Password is required.</span
+      >
+      <span
+        ng-show="loginForm.password.$touched && loginForm.password.$error.minlength"
+        style="color: red"
+        >min 8 chars.</span
+      >
+      <span
+        ng-show="loginForm.password.$touched && loginForm.password.$error.pattern"
+        style="color: red"
+        >Password must contain alphanumeric and special characters</span
+      ><br /><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script src="angular-js.js"></script>
+    <script></script>
+  </body>
+</html>

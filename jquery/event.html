@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <button id="red">Red</button>
+    <button id="blue">Blue</button>
+  </body>
+  <script>
+    $("#red").click(function () {
+      $("body").css("background-color", "red");
+    });
+    $("#blue").click(function () {
+      $("body").css("background-color", "blue");
+    });
+    var $a = $("#red");
+  </script>
+</html>

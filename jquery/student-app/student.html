@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student</title>
+    <link rel="stylesheet" href="student.css" />
+  </head>
+  <body>
+    <div>
+      <label>Input Name</label>
+      <input type="text" id="name" />
+      <br />
+      <label>Input Email</label>
+      <input type="text" id="email" />
+      <br />
+      <label>Input Date</label>
+      <input type="text" id="date" />
+      <br />
+      <label>Input Roll Number </label>
+      <input type="text" id="roll_num" />
+      <br />
+      <label>IsMale</label>
+      <input type="text" id="is_male" />
+      <br />
+      <label>Input Age</label>
+      <input type="text" id="age" />
+      <label>Input Student Id</label>
+      <input type="text" id="student_id" />
+    </div>
+    <br />
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="editStudent()">Edit Student</button>
+
+    <br />
+    <br />
+    <div id="student_div"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="student.js"></script>
+  </body>
+</html>

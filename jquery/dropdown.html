@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dropdown</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <select name="colors" id="colors">
+      <option value="">select a color</option>
+      <option value="red">red</option>
+      <option value="blue">blue</option>
+      <option value="green">green</option>
+    </select>
+
+    <script>
+      $("#colors").change(function () {
+        $("body").css("background-color", $("option:selected").text());
+      });
+    </script>
+  </body>
+</html>
