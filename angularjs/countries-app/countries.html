@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countries</title>
+    <script src="../angular-js.js"></script>
+    <link rel="stylesheet" href="countries.css" />
+  </head>
+  <body ng-app="myApp" ng-controller="myCtrl">
+    <table>
+      <tr>
+        <th>Country Name</th>
+        <th>Country Capital</th>
+        <th>Country Flag</th>
+      </tr>
+      <tr ng-repeat="country in countries | filter:sortFilter">
+        <td>{{country.name}}</td>
+        <td>{{country.capital}}</td>
+        <td><img src="{{country.flag}}" height="50px" width="50px" /></td>
+      </tr>
+    </table>
+    <script>
+      var app = angular.module("myApp", []);
+      app.controller("myCtrl", [
+        "$scope",
+        "$http",
+        function ($scope, $http) {
+          $scope.countries = [];
+          $http
+            .get("http://restcountries.eu/rest/v2/all")
+            .then(function (response) {
+              $scope.countries = response.data;
+            });
+        },
+      ]);
+      app.filter("sortFilter", function () {
+        return function (array) {
+          array.sort((a, b) =>
+            a.capital > b.capital ? 1 : b.capital > a.capital ? -1 : 0
+          );
+        };
+      });
+    </script>
+  </body>
+</html>

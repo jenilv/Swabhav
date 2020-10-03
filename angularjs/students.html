@@ -31,15 +31,20 @@
       <br />
       <table ng-show="show">
         <tr>
+          <th>Photo</th>
           <th>Roll Number</th>
           <th>Name</th>
           <th>cgpa</th>
+          <th>Gender</th>
         </tr>
-        <tr ng-repeat="student in students | filter:{item:'!'} track by $index">
+        <tr
+          ng-repeat="student in students | filter:{item:'!'} | cgpaToGrade | genderFilter:'4' track by $index"
+        >
           <td><img src="{{student.image}}" height="50" width="50" /></td>
           <td>{{student.roll}}</td>
           <td>{{student.name}}</td>
           <td>{{student.cgpa}}</td>
+          <td>{{student.gender}}</td>
         </tr>
       </table>
     </div>
@@ -58,12 +63,14 @@
             roll: 101,
             name: "Sachin",
             cgpa: 7.5,
+            gender: "MALE",
           },
           {
             image: "index.png",
             roll: 103,
             name: "JV",
             cgpa: 5.5,
+            gender: "MALE",
           },
           ,
           {
@@ -71,6 +78,7 @@
             roll: 104,
             name: "JV",
             cgpa: 4.5,
+            gender: "FEMALE",
           },
           ,
           {
@@ -78,6 +86,7 @@
             roll: 105,
             name: "J",
             cgpa: 8.5,
+            gender: "FEMALE",
           },
           ,
           {
@@ -85,6 +94,7 @@
             roll: 106,
             name: "V",
             cgpa: 9.5,
+            gender: "MALE",
           },
         ];
 
@@ -92,6 +102,37 @@
 
         $scope.showStudents = function () {
           $scope.show = !$scope.show;
+        };
+      });
+      application.filter("cgpaToGrade", function () {
+        return function (students) {
+          students.forEach((student) => {
+            if (student.cgpa > 9) {
+              student.cgpa = "A";
+            } else if (student.cgpa > 8 && student.cgpa < 9) {
+              student.cgpa = "B";
+            } else if (student.cgpa > 7 && student.cgpa < 8) {
+              student.cgpa = "C";
+            } else if (student.cgpa > 6 && student.cgpa < 7) {
+              student.cgpa = "D";
+            } else if (student.cgpa > 5 && student.cgpa < 6) {
+              student.cgpa = "E";
+            } else if (student.cgpa > 4 && student.cgpa < 5) {
+              student.cgpa = "F";
+            }
+          });
+
+          return students;
+        };
+      });
+      application.filter("genderFilter", function () {
+        return function (input, number) {
+          input.forEach((student) => {
+            if (number == 1 || number == 2 || number == 3) {
+              student.gender = student.gender.substring(0, number);
+            }
+          });
+          return input;
         };
       });
     </script>

@@ -6,32 +6,87 @@
     <title>To Do App</title>
     <link rel="stylesheet" href="todolist.css" />
     <script src="../angular-js.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
-  <body>
-    <div ng-app="todolist" ng-controller="todolistController">
-      <div class="create" id="add_div">
-        <h2>Add Task</h2>
-        <label>Task Name</label>
-        <br />
-        <input type="text" ng-model="task.name" />
-        <br />
-        <br />
-        <label>Time</label>
-        <br />
-        <input type="text" ng-model="task.time" />
-        <br />
-        <br />
-        <button id="add_button" ng-click="addToTaskList(task)">Add Task</button>
+  <body ng-app="todolist" ng-controller="todolistController">
+    <div class="create" id="add_div">
+      <!-- <h1
+          style="
+            text-align: center;
+            color: white;
+            background-color: gray;
+            border-radius: 25px;
+          "
+        > -->
+      <!-- <h2>Add Task</h2>
+      <label>Task Name</label>
+      <br />
+      <input type="text" ng-model="task.name" />
+      <br />
+      <br />
+      <button id="add_button" ng-click="addToTaskList(task)">Add Task</button> -->
+
+      <div class="container">
+        <div class="jumbotron">
+          <h1>Your Tasks</h1>
+        </div>
       </div>
-      <div class="display_pending" id="display_pending">
-        <h2>Pending Task List</h2>
-        <ul id="task_list">
-          <li ng-repeat="task in taskList track by $index">
-            <span style="font-size: 150%">Task name: {{task.name}}</span>
-            <br />
-            <span>Task time: {{task.time}}</span>
-          </li>
-        </ul>
+      <!-- </h1> -->
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Done</th>
+              <th>Task</th>
+              <th>Time</th>
+              <th>Update</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              ng-repeat="task in taskList | filter:{item:'!'} track by $index"
+            >
+              <td>
+                <input
+                  type="checkbox"
+                  id="{{$index}}"
+                  ng-checked="{{task.done}}"
+                  ng-click="checkTask(task)"
+                />
+              </td>
+              <td ng-style="task.done && {'text-decoration': 'line-through'}">
+                <span ng-if="!task.editing">{{task.name}}</span>
+                <span ng-if="task.editing">
+                  <input ng-model="task.name" />
+                  <button
+                    class="btn btn-primary"
+                    ng-click="save(task, $index); task.editing = false"
+                  >
+                    Save
+                  </button>
+                </span>
+              </td>
+              <td>{{task.time}}</td>
+              <td>
+                <button class="btn btn-primary" ng-click="updateTask($index)">
+                  Update
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-primary" ng-click="removeTask(task)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <script>
@@ -51,6 +106,7 @@
           $scope.task = null;
 
           $scope.addToTaskList = function (data) {
+            data.done = false;
             $scope.taskList.push(data);
             console.log("Added");
             console.log($scope.taskList);
@@ -61,10 +117,54 @@
             );
             console.log($window.localStorage.getItem("pendingTasks"));
           };
+
+          $scope.removeTask = function (task) {
+            var index = $scope.taskList.indexOf(task);
+            if (index > -1) {
+              $scope.taskList.splice(index, 1);
+            }
+            $window.localStorage.setItem(
+              "pendingTasks",
+              JSON.stringify($scope.taskList)
+            );
+          };
+
+          $scope.checkTask = function (task) {
+            var index = $scope.taskList.indexOf(task);
+            if (index > -1) {
+              $scope.taskList[index].done = !$scope.taskList[index].done;
+              var d = new Date();
+              $scope.taskList[index].time =
+                ("0" + d.getDate()).slice(-2) +
+                "-" +
+                ("0" + (d.getMonth() + 1)).slice(-2) +
+                "-" +
+                d.getFullYear() +
+                " " +
+                ("0" + d.getHours()).slice(-2) +
+                ":" +
+                ("0" + d.getMinutes()).slice(-2);
+            }
+            $window.localStorage.setItem(
+              "pendingTasks",
+              JSON.stringify($scope.taskList)
+            );
+          };
+
+          $scope.save = function (task, $index) {
+            task.editing = false;
+            $scope.taskList[$index] = task;
+            $window.localStorage.setItem(
+              "pendingTasks",
+              JSON.stringify($scope.taskList)
+            );
+          };
+
+          $scope.updateTask = function (index) {
+            $scope.taskList[index].editing = true;
+          };
         },
       ]);
-
-      function addTask() {}
     </script>
   </body>
 </html>

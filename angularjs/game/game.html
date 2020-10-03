@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <link rel="stylesheet" href="game.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body ng-app="game" ng-controller="gameController">
+    <script src="../angular-js.js"></script>
+    <div class="container">
+      <div class="jumbotron" ng-show="showRules">
+        <h1>Game Rules</h1>
+        <ul>
+          <li>Player has to guess the blue ball inorder to win the game</li>
+          <li>Player will have 3 attempts to guess the game</li>
+          <li>If guess is lower, button will turn red</li>
+          <li>If guess is higher, button will turn green</li>
+          <li>If guess is correct, button will turn blue</li>
+        </ul>
+      </div>
+      <button
+        ng-click="startGame()"
+        ng-show="showRules"
+        class="btn btn-primary mx-auto d-block"
+      >
+        Start
+      </button>
+      <br />
+      <br />
+      <div ng-show="show">
+        <table class="center">
+          <tr ng-repeat="i in [1,2,3,4,5]">
+            <td ng-repeat="j in [1,2,3,4,5,6,7,8,9,10]">
+              <button
+                class="btnGame"
+                onclick="this.disabled=true"
+                ng-click="selected($event)"
+                id="{{i === 1 ? i * j : (10 * (i - 1)) + j}}"
+                ng-disabled="finished"
+              >
+                {{i === 1 ? i * j : (10 * (i - 1)) + j}}
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <br />
+      <br />
+      <button
+        ng-click="restartGame()"
+        ng-show="show"
+        class="btn btn-primary mx-auto d-block"
+      >
+        Restart Game
+      </button>
+      <br />
+      <br />
+      <span class="mx-auto d-block text-center" ng-model="result"
+        >{{result}}</span
+      >
+    </div>
+    <script>
+      angular.module("game", []).controller("gameController", [
+        "$scope",
+        "$document",
+        "$window",
+        function ($scope, $document, $window) {
+          $scope.number = Math.floor(Math.random() * 51);
+          console.log($scope.number);
+          $scope.show = false;
+          $scope.finished = false;
+          $scope.count = 0;
+          $scope.showRules = true;
+
+          $scope.result = null;
+
+          $scope.startGame = function () {
+            $scope.show = true;
+            $scope.showRules = false;
+          };
+
+          $scope.selected = function ($event) {
+            $scope.count += 1;
+            var id = parseInt($event.target.attributes.id.value);
+            console.log(id);
+            if (id < $scope.number) {
+              $event.target.style.backgroundColor = "red";
+            } else if (id > $scope.number) {
+              $event.target.style.backgroundColor = "green";
+            } else {
+              $event.target.style.backgroundColor = "blue";
+              $scope.finished = true;
+              $scope.result = "Guessed Correct!";
+              return;
+            }
+
+            if (!$scope.finished && $scope.count == 3) {
+              $scope.result =
+                "Game Finished! The blue ball is at position " +
+                $scope.number.toString();
+              var ele = $document[0].getElementById($scope.number.toString());
+              ele.style.backgroundColor = "blue";
+              $scope.finished = true;
+            }
+          };
+
+          $scope.checkButton = function (num) {
+            if (num < $scope.number) {
+            }
+          };
+
+          $scope.restartGame = function () {
+            $window.location.reload();
+          };
+        },
+      ]);
+    </script>
+  </body>
+</html>
